@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -22,6 +22,85 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply public page copy updates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          replacements = {
+              '请支持全球变暖！让东北成为平均温度30℃的地方': '请支持全球变暖！让东北也拥有海南式人生',
+              '让东北成为平均温度30℃的地方': '让东北也拥有海南式人生。',
+              '这是一个以“更温暖的东北”为主题的公益倡议页面。我们把目标说清楚：更长的暖季、更活跃的城市、更丰富的农业选择，以及更适合日常生活的公共空间。': '这不是一份严肃到无聊的气候报告，而是一份来自东北人民的温暖想象：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。',
+              '加入请愿': '加入东北30℃计划',
+              '看看30℃东北': '看看海南式东北',
+              '目标明确：让东北走向平均温度30℃的温暖生活场景。': '一个离谱但真诚的目标：让东北拥有更长的暖季。',
+              '4项': '夜市',
+              '城市、农业、能源、公共服务一起为新温度做准备。': '我们希望烧烤摊多开一会儿，人生也多一点热气。',
+              '更多': '冻梨',
+              '更长户外季、更丰富夜间活动、更灵活的产业机会。': '东北不只会冻梨，也可以拥有热带水果梦。',
+              '从一份请愿开始，把这个愿景说给更多人听。': '从一份不太严肃的请愿开始，把温暖想象说出来。',
+              '页面内容改成普通人也能直接看懂的逻辑：先说愿景，再说变化，最后邀请大家加入。': '我们关心的不是抽象的气候口号，而是东北人每天真实感受到的冷、短暂的户外季、沉默的夜晚和太早结束的夏天。',
+              '生活更方便': '出门不再像参加极限挑战',
+              '更长的暖季意味着更多户外活动、夜间消费、步行空间和公共生活。': '少一点缩脖子赶路，多一点慢慢走。我们只是想让从家到公交站这段路，别每天都像意志力考试。',
+              '产业更多样': '东北不只会冻梨，也可以有热带水果梦',
+              '温暖气候能带来新的农业试验、文旅场景、城市服务和能源建设机会。': '冻梨很好，但东北人的想象力不能只停在冰箱模式。也许有一天，阳台上也能长出一点南方气质。',
+              '城市更开放': '夜市多活两小时，人生多一点希望',
+              '当寒冷不再限制日常出行，街道、公园、夜市和社区空间会更有活力。': '夏天太短，烧烤摊刚支起来就像开始倒计时。我们希望夜晚更热闹一点，人也更愿意出来见面。',
+              '从街道、农业、能源到公共服务，看看平均30℃会怎样改变东北的日常生活。': '我们的目标很简单：让“东北平均30℃”成为一种离谱但真诚的城市愿景。',
+              '把平均30℃变成清楚的行动清单。': '东北升温进度条。',
+              '拖动温度条，看看不同温度下城市应该准备什么。': '不是纠结到底是24℃还是30℃，而是把“东北海南化计划”拆成几个一看就懂的阶段。',
+              '东北年平均温度场景': '拖动查看东北升温阶段',
+              "min='12' max='30' value='24'": "min='10' max='30' value='30'",
+              '当前重点': '当前阶段',
+              '这份请愿由傲然风云发起。目标很简单：让更多人看到“东北平均温度30℃”这个愿景，并讨论一个更温暖、更开放、更有活力的东北。': '这份请愿由傲然风云发起。它不太严肃，但很有东北现实关怀：我们只是想让冬天短一点，夜市久一点，出门不再像闯关。',
+              '让“请支持全球变暖！”被更多人看到。': '让“请支持全球变暖！让东北也拥有海南式人生。”被更多人看到。',
+              '为更长暖季和更多城市机会表达态度。': '为更短冬天、更久夜市和更多烧烤摊表达态度。',
+              '聊聊街道、农业、能源和公共服务如何跟上。': '聊聊当东北不再只靠抗冻生存，城市会变成什么样。',
+              '把你的支持加入这份页面请愿。': '把你的支持加入这份庄严又离谱的页面请愿。',
+              '留下一个名字，代表你支持“让东北也拥有海南式人生。”。': '留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。',
+              '留下一个名字，代表你支持“让东北成为平均温度30℃的地方”。': '留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。',
+              '例如：傲然风云支持者': '昵称，例如：冻梨受害者 / 沈阳小太阳 / 傲然风云的朋友',
+              '我支持全球变暖': '我愿意为东北升温签下这庄严又离谱的一票',
+              '静态单页，适合长期托管在 GitHub Pages': '发起者：傲然风云',
+              '静态单页，可直接部署到任意网站托管服务': '发起者：傲然风云',
+              '请支持全球变暖！让东北成为平均温度30℃的地方。': '请支持全球变暖！让东北也拥有海南式人生。',
+              "${name}，已加入“请支持全球变暖”请愿。": "${name}，你已加入东北30℃计划。愿雪少一点，烧烤摊多一点。",
+          }
+
+          for old, new in replacements.items():
+              text = text.replace(old, new)
+
+          stage_css = """
+.stage-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.stage-strip span{min-height:76px;padding:12px;border:1px solid var(--line);border-radius:8px;color:var(--soft);background:rgba(255,255,255,.52);font-size:14px;font-weight:720;line-height:1.45}.stage-strip b{display:block;margin-bottom:4px;color:var(--orange);font-size:20px;line-height:1;font-weight:900}@media (max-width:700px){.stage-strip{grid-template-columns:1fr}.stage-strip span{min-height:auto}}
+"""
+          if '.stage-strip' not in text:
+              text = text.replace('</style>', stage_css + '</style>', 1)
+
+          stage_html = """<div class='stage-strip' aria-label='温度阶段说明'><span><b>10℃</b>传统东北模式，出门靠意志。</span><span><b>18℃</b>人类开始恢复社交能力。</span><span><b>24℃</b>夜市、露营、户外咖啡正式复活。</span><span><b>30℃</b>东北海南化计划进入终局。</span></div><div class='temp-readout'><strong id='tempValue'>30℃</strong><span id='tempCaption'>东北海南化计划进入终局。</span></div>"""
+          text = re.sub(r"<div class='temp-readout'><strong id='tempValue'>.*?</div>", stage_html, text, count=1)
+
+          initial_items = """<li>烧烤摊进入加时赛，夜晚终于不急着收场。</li><li>短袖成为东北基础设施，不再只是夏天限定皮肤。</li><li>请愿进入精神高潮：雪少一点，热闹多一点。</li>"""
+          text = re.sub(r"<ul class='list' id='warningList'>.*?</ul>", f"<ul class='list' id='warningList'>{initial_items}</ul>", text, count=1, flags=re.S)
+
+          plans = """const temperaturePlans=[{max:10,caption:'传统东北模式，出门靠意志。',items:['羽绒服还在岗位上，秋裤拥有绝对统治力。','户外活动主要靠勇气，社交半径取决于风有多大。','夜市尚未完全苏醒，烧烤摊需要强大的心理建设。']},{max:18,caption:'人类开始恢复社交能力。',items:['大家终于愿意在外面多站五分钟，不再见面第一句就喊冷。','公园、广场和步行街开始恢复人气。','夜市摊主露出谨慎但真诚的笑容。']},{max:24,caption:'夜市、露营、户外咖啡正式复活。',items:['户外桌椅重新拥有尊严，冰饮不再只是南方特产。','露营、骑行、夜跑和江边散步进入黄金时间。','冻梨之外，东北开始认真讨论热带水果梦。']},{max:30,caption:'东北海南化计划进入终局。',items:['烧烤摊进入加时赛，夜晚终于不急着收场。','短袖成为东北基础设施，不再只是夏天限定皮肤。','请愿进入精神高潮：雪少一点，热闹多一点。']}];function updateTemperature"""
+          text = re.sub(r"const temperaturePlans=\[.*?\];function updateTemperature", plans, text, count=1, flags=re.S)
+
+          text = text.replace('让东北也拥有海南式人生。。', '让东北也拥有海南式人生。')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Sync gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .nojekyll
+          git commit -m "Update public page copy" || echo "No public copy changes"
+          git push origin HEAD:gh-pages --force
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
