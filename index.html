@@ -71,11 +71,18 @@
 
     #why .section-head h2 .mobile-shift-line {
       display: block;
-      padding-left: .58em;
+      padding-left: 2.75em;
+    }
+
+    #scenes .section-head h2 .mobile-scene-line {
+      display: block;
+      padding-left: 4.25em;
     }
 
     .temp-section .lead {
-      max-width: 12.5em;
+      max-width: 15.5em;
+      margin-inline: auto;
+      text-align: center;
     }
 
     .temp-timeline {
@@ -84,8 +91,8 @@
 
     .temp-step {
       display: grid;
-      grid-template-columns: minmax(126px, 34%) minmax(0, 1fr);
-      column-gap: 16px;
+      grid-template-columns: minmax(150px, 38%) minmax(0, 1fr);
+      column-gap: 24px;
       align-items: center;
       min-height: 150px;
       padding: 20px 18px 20px 52px;
@@ -117,14 +124,22 @@
     }
 
     @media (max-width: 420px) {
+      #why .section-head h2 .mobile-shift-line {
+        padding-left: 2.45em;
+      }
+
+      #scenes .section-head h2 .mobile-scene-line {
+        padding-left: 4em;
+      }
+
       .temp-step {
-        grid-template-columns: minmax(104px, 36%) minmax(0, 1fr);
-        column-gap: 10px;
+        grid-template-columns: minmax(118px, 40%) minmax(0, 1fr);
+        column-gap: 16px;
         padding-left: 46px;
       }
 
       .temp-degree {
-        font-size: clamp(44px, 15vw, 62px);
+        font-size: clamp(42px, 14vw, 56px);
       }
 
       .temp-name {
@@ -142,6 +157,10 @@
         html = html.replace(
           `<h2>为什么支持东北变得更温暖？</h2>`,
           `<h2><span>为什么支持东</span><span class="mobile-shift-line">北变得更温暖？</span></h2>`
+        );
+        html = html.replace(
+          `<h2>东北平均30℃后，会发生什么？</h2>`,
+          `<h2><span>东北平均30℃后</span><span class="mobile-scene-line">会发生什么？</span></h2>`
         );
         html = html.replace(`<div class="scenario-icon">果</div>`, `<div class="scenario-icon">食</div>`);
         html = html.replace(
