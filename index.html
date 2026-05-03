@@ -3,7 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>请支持全球变暖！让东北也拥有海南式人生</title>
+  <title>请支持全球变暖！让东北也拥有海南式人生。</title>
+  <meta name="title" content="请支持全球变暖！让东北也拥有海南式人生。">
+  <meta name="description" content="东北30℃计划：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。">
+  <meta name="image" content="https://lxcfdds-commits.github.io/my-html-site/assets/wechat-share.jpg">
+  <meta name="url" content="https://lxcfdds-commits.github.io/my-html-site/">
+  <link rel="canonical" href="https://lxcfdds-commits.github.io/my-html-site/">
+  <link rel="image_src" href="https://lxcfdds-commits.github.io/my-html-site/assets/wechat-share.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="东北30℃计划">
+  <meta property="og:title" content="请支持全球变暖！让东北也拥有海南式人生。">
+  <meta property="og:description" content="东北30℃计划：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。">
+  <meta property="og:image" content="https://lxcfdds-commits.github.io/my-html-site/assets/wechat-share.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="180">
+  <meta property="og:image:height" content="180">
+  <meta property="og:url" content="https://lxcfdds-commits.github.io/my-html-site/">
+  <meta itemprop="name" content="请支持全球变暖！让东北也拥有海南式人生。">
+  <meta itemprop="description" content="东北30℃计划：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。">
+  <meta itemprop="image" content="https://lxcfdds-commits.github.io/my-html-site/assets/wechat-share.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="请支持全球变暖！让东北也拥有海南式人生。">
+  <meta name="twitter:description" content="东北30℃计划：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。">
+  <meta name="twitter:image" content="https://lxcfdds-commits.github.io/my-html-site/assets/wechat-share.jpg">
   <style>
     body {
       margin: 0;
@@ -30,338 +52,14 @@
 <body>
   <main class="loader">正在加载东北30℃计划...</main>
   <script>
-    function setupDesktopRecentSigners() {
-      const list = document.querySelector("#recentSigners");
-      const form = document.querySelector("#petitionForm");
-      const input = document.querySelector("#petitionName");
-      if (!list || !form || !input) return;
-
-      const key = "northeast30RecentSigners";
-      const defaults = ["沈阳小太阳", "冻梨受害者", "傲然风云的朋友"];
-      const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "\"": "&quot;",
-        "'": "&#39;"
-      }[char]));
-      const cleanName = value => value.trim().slice(0, 24) || "一位支持者";
-      const readNames = () => {
-        try {
-          const saved = JSON.parse(localStorage.getItem(key));
-          if (Array.isArray(saved) && saved.length) return saved.slice(0, 3);
-        } catch (_) {}
-        return defaults;
-      };
-      const render = names => {
-        list.innerHTML = names.slice(0, 3).map((name, index) => `
-          <li>
-            <span>${escapeHtml(name)}</span>
-            <b>最新 ${index + 1}</b>
-          </li>
-        `).join("");
-      };
-
-      render(readNames());
-      form.addEventListener("submit", () => {
-        const name = cleanName(input.value);
-        const names = [name, ...readNames().filter(item => item !== name)].slice(0, 3);
-        localStorage.setItem(key, JSON.stringify(names));
-        render(names);
-      }, true);
-    }
-
     (async () => {
-      const source = "https://raw.githubusercontent.com/lxcfdds-commits/my-html-site/28b76a0da898c7120bafd7a40483cb3cf8c9c1f9/index.html";
+      const source = "https://raw.githubusercontent.com/lxcfdds-commits/my-html-site/d04b17a3dca076086ef681b5a928672411a15095/index.html";
       const response = await fetch(source, { cache: "force-cache" });
       if (!response.ok) throw new Error("source load failed");
-
-      let html = await response.text();
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
-      if (isMobile) {
-        const mobileCss = `
-    .hero {
-      min-height: auto;
-      display: block;
-      position: relative;
-      overflow: hidden;
-      padding: 28px 0 24px;
-      background:
-        linear-gradient(90deg, rgba(255, 247, 232, .96) 0%, rgba(255, 247, 232, .9) 55%, rgba(255, 247, 232, .48) 100%),
-        url("assets/northeast-30c-mobile-hero.svg") center bottom / cover no-repeat;
-    }
-
-    .hero-grid {
-      gap: 0;
-      min-height: 520px;
-      align-content: center;
-    }
-
-    .hero .eyebrow {
-      display: none;
-    }
-
-    .hero h1 {
-      margin-bottom: 16px;
-      line-height: 1.08;
-    }
-
-    .hero-sub {
-      margin-top: 13px;
-      line-height: 1.18;
-    }
-
-    #why .section-head h2 .mobile-shift-line {
-      display: block;
-      padding-left: 2.75em;
-    }
-
-    #scenes .section-head h2 .mobile-scene-line {
-      display: block;
-      padding-left: 4.25em;
-    }
-
-    .temp-section .lead {
-      max-width: 15.5em;
-      margin-inline: auto;
-      text-align: center;
-    }
-
-    .temp-timeline {
-      gap: 18px;
-    }
-
-    .temp-step {
-      display: grid;
-      grid-template-columns: minmax(150px, 38%) minmax(0, 1fr);
-      column-gap: 24px;
-      align-items: center;
-      min-height: 150px;
-      padding: 20px 18px 20px 52px;
-    }
-
-    .temp-degree {
-      grid-row: 1 / span 2;
-      margin: 0;
-      font-size: clamp(48px, 14vw, 72px);
-      line-height: .95;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .temp-name {
-      grid-column: 2;
-      align-self: end;
-      margin: 0 0 6px;
-      font-size: 20px;
-      line-height: 1.2;
-    }
-
-    .temp-step p {
-      grid-column: 2;
-      align-self: start;
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 420px) {
-      #why .section-head h2 .mobile-shift-line {
-        padding-left: 2.45em;
-      }
-
-      #scenes .section-head h2 .mobile-scene-line {
-        padding-left: 4em;
-      }
-
-      .temp-step {
-        grid-template-columns: minmax(118px, 40%) minmax(0, 1fr);
-        column-gap: 16px;
-        padding-left: 46px;
-      }
-
-      .temp-degree {
-        font-size: clamp(42px, 14vw, 56px);
-      }
-
-      .temp-name {
-        font-size: 18px;
-      }
-
-      .temp-step p {
-        font-size: 14px;
-      }
-    }
-`;
-
-        html = html.replace("  </style>", `${mobileCss}\n  </style>`);
-        html = html.replace(`          <div class="eyebrow">发起者：傲然风云</div>\n`, "");
-        html = html.replace(
-          `<h2>为什么支持东北变得更温暖？</h2>`,
-          `<h2><span>为什么支持东</span><span class="mobile-shift-line">北变得更温暖？</span></h2>`
-        );
-        html = html.replace(
-          `<h2>东北平均30℃后，会发生什么？</h2>`,
-          `<h2><span>东北平均30℃后</span><span class="mobile-scene-line">会发生什么？</span></h2>`
-        );
-        html = html.replace(`<div class="scenario-icon">果</div>`, `<div class="scenario-icon">食</div>`);
-        html = html.replace(
-          `<h2>东北海南化进度条。</h2>`,
-          `<h2>东北海南化进度条</h2>`
-        );
-        html = html.replace(
-          `不是纠结到底是24℃还是30℃，而是把升温想象拆成几个一看就懂的阶段。`,
-          `从出门体感到夜市时长，每个温度节点都对应一种日常变化：不是数字升高，而是生活半径被重新打开。`
-        );
-        html = html.replace(
-          `            <p>留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。票数会保存在你的浏览器里，刷新后也不会掉。</p>`,
-          `            <p>留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。让冬天短一点，夜市久一点，烧烤摊多一点。</p>`
-        );
-      } else {
-        const desktopCss = `
-    @media (min-width: 768px) {
-      .hero h1 {
-        margin-bottom: 28px;
-      }
-
-      .hero-sub {
-        margin-top: 20px;
-        line-height: 1.2;
-      }
-
-      #why .section-head,
-      #scenes .section-head {
-        max-width: 1180px;
-      }
-
-      #why .section-head h2,
-      #scenes .section-head h2 {
-        white-space: nowrap;
-      }
-
-      .temp-section .section-head {
-        max-width: 1180px;
-        display: grid;
-        grid-template-columns: minmax(360px, auto) minmax(420px, 560px);
-        gap: 60px;
-        align-items: end;
-      }
-
-      .temp-section .lead {
-        justify-self: end;
-        max-width: 560px;
-        margin: 0 0 10px;
-        text-align: left;
-      }
-
-      .temp-timeline {
-        gap: 18px;
-        align-items: stretch;
-      }
-
-      .temp-step {
-        min-height: 230px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 30px 26px 28px;
-      }
-
-      .temp-degree {
-        display: block;
-        margin: 0 0 24px;
-        font-size: clamp(50px, 4.5vw, 76px);
-        line-height: .95;
-        letter-spacing: 0;
-        white-space: nowrap;
-      }
-
-      .temp-name {
-        display: block;
-        margin: 0 0 10px;
-        font-size: 24px;
-        line-height: 1.18;
-      }
-
-      .temp-step p {
-        margin: 0;
-        font-size: 16px;
-        line-height: 1.55;
-      }
-
-      .recent-signers {
-        margin-top: 22px;
-        max-width: 620px;
-        padding: 18px;
-        border: 1px solid rgba(255, 255, 255, .16);
-        border-radius: 22px;
-        background: rgba(255, 255, 255, .07);
-      }
-
-      .recent-signers h3 {
-        margin: 0 0 12px;
-        color: white;
-        font-size: 20px;
-        line-height: 1.25;
-      }
-
-      .recent-list {
-        max-height: 132px;
-        margin: 0;
-        padding: 0 8px 0 0;
-        display: grid;
-        gap: 10px;
-        overflow-y: auto;
-        scrollbar-color: var(--yellow) rgba(255, 255, 255, .14);
-      }
-
-      .recent-list li {
-        min-height: 38px;
-        padding: 8px 10px 8px 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        list-style: none;
-        border-radius: 14px;
-        color: rgba(255, 255, 255, .88);
-        background: rgba(255, 255, 255, .08);
-        font-weight: 850;
-      }
-
-      .recent-list b {
-        color: var(--yellow);
-        font-size: 13px;
-        white-space: nowrap;
-      }
-    }
-`;
-
-        html = html.replace("  </style>", `${desktopCss}\n  </style>`);
-        html = html.replace(`<h2><span>为什么支持东</span><span class="mobile-shift-line">北变得更温暖？</span></h2>`, `<h2>为什么支持东北变得更温暖？</h2>`);
-        html = html.replace(`<h2><span>东北平均30℃后</span><span class="mobile-scene-line">会发生什么？</span></h2>`, `<h2>东北平均30℃后，会发生什么？</h2>`);
-        html = html.replace(`<span class="initiator">发起者：傲然风云</span>\n            <h2>加入东北30℃请愿行动。</h2>`, `<span class="initiator">活动主办人：傲然风云</span>\n            <h2>加入东北30℃请愿行动。</h2>`);
-        html = html.replace(`<span class="initiator">发起者：傲然风云</span>\n            <h2>东北30℃请愿书</h2>`, `<span class="initiator">活动主办人：傲然风云</span>\n            <h2>东北30℃请愿书</h2>`);
-        html = html.replace(
-          `            </div>\n          </div>\n          <form class="petition-card" id="petitionForm">`,
-          `            </div>\n            <div class="recent-signers" aria-live="polite">\n              <h3>最新三位请愿者</h3>\n              <ol class="recent-list" id="recentSigners"></ol>\n            </div>\n          </div>\n          <form class="petition-card" id="petitionForm">`
-        );
-      }
-
-      const hash = window.location.hash;
+      const html = await response.text();
       document.open();
       document.write(html);
       document.close();
-      if (!isMobile) {
-        setupDesktopRecentSigners();
-      }
-      if (hash) {
-        setTimeout(() => {
-          try {
-            document.querySelector(hash)?.scrollIntoView({ block: "start" });
-          } catch (_) {}
-        }, 120);
-      }
     })().catch(() => {
       document.body.innerHTML = "<main class='loader'>页面加载失败，请刷新一次。</main>";
     });
