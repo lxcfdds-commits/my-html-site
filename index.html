@@ -37,34 +37,117 @@
 
       let html = await response.text();
       if (window.matchMedia("(max-width: 767px)").matches) {
-        const oldHeroCss = `      .hero {
-        min-height: auto;
-        display: block;
-        padding: 28px 0 24px;
+        const mobileCss = `
+    .hero {
+      min-height: auto;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      padding: 28px 0 24px;
+      background:
+        linear-gradient(90deg, rgba(255, 247, 232, .96) 0%, rgba(255, 247, 232, .9) 55%, rgba(255, 247, 232, .48) 100%),
+        url("assets/northeast-30c-mobile-hero.svg") center bottom / cover no-repeat;
+    }
+
+    .hero-grid {
+      gap: 0;
+      min-height: 520px;
+      align-content: center;
+    }
+
+    .hero .eyebrow {
+      display: none;
+    }
+
+    .hero h1 {
+      margin-bottom: 16px;
+      line-height: 1.08;
+    }
+
+    .hero-sub {
+      margin-top: 13px;
+      line-height: 1.18;
+    }
+
+    #why .section-head h2 .mobile-shift-line {
+      display: block;
+      padding-left: .58em;
+    }
+
+    .temp-section .lead {
+      max-width: 12.5em;
+    }
+
+    .temp-timeline {
+      gap: 18px;
+    }
+
+    .temp-step {
+      display: grid;
+      grid-template-columns: minmax(126px, 34%) minmax(0, 1fr);
+      column-gap: 16px;
+      align-items: center;
+      min-height: 150px;
+      padding: 20px 18px 20px 52px;
+    }
+
+    .temp-degree {
+      grid-row: 1 / span 2;
+      margin: 0;
+      font-size: clamp(48px, 14vw, 72px);
+      line-height: .95;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .temp-name {
+      grid-column: 2;
+      align-self: end;
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .temp-step p {
+      grid-column: 2;
+      align-self: start;
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 420px) {
+      .temp-step {
+        grid-template-columns: minmax(104px, 36%) minmax(0, 1fr);
+        column-gap: 10px;
+        padding-left: 46px;
       }
 
-      .hero-grid {
-        gap: 0;
-      }`;
-
-        const newHeroCss = `      .hero {
-        min-height: auto;
-        display: block;
-        position: relative;
-        overflow: hidden;
-        padding: 28px 0 24px;
-        background:
-          linear-gradient(90deg, rgba(255, 247, 232, .96) 0%, rgba(255, 247, 232, .9) 55%, rgba(255, 247, 232, .48) 100%),
-          url("assets/northeast-30c-mobile-hero.svg") center bottom / cover no-repeat;
+      .temp-degree {
+        font-size: clamp(44px, 15vw, 62px);
       }
 
-      .hero-grid {
-        gap: 0;
-        min-height: 520px;
-        align-content: center;
-      }`;
+      .temp-name {
+        font-size: 18px;
+      }
 
-        html = html.replace(oldHeroCss, newHeroCss);
+      .temp-step p {
+        font-size: 14px;
+      }
+    }
+`;
+
+        html = html.replace("  </style>", `${mobileCss}\n  </style>`);
+        html = html.replace(`          <div class="eyebrow">发起者：傲然风云</div>\n`, "");
+        html = html.replace(
+          `<h2>为什么支持东北变得更温暖？</h2>`,
+          `<h2><span>为什么支持东</span><span class="mobile-shift-line">北变得更温暖？</span></h2>`
+        );
+        html = html.replace(`<div class="scenario-icon">果</div>`, `<div class="scenario-icon">食</div>`);
+        html = html.replace(
+          `不是纠结到底是24℃还是30℃，而是把升温想象拆成几个一看就懂的阶段。`,
+          `从出门体感到夜市时长，每个温度节点都对应一种日常变化：不是数字升高，而是生活半径被重新打开。`
+        );
         html = html.replace(
           `            <p>留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。票数会保存在你的浏览器里，刷新后也不会掉。</p>`,
           `            <p>留下一个名字，代表你愿意为东北升温签下这庄严又离谱的一票。让冬天短一点，夜市久一点，烧烤摊多一点。</p>`
