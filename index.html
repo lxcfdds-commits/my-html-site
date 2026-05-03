@@ -216,6 +216,11 @@
       font-weight: 850;
     }
 
+    .mobile-lead,
+    .mobile-goal {
+      display: none;
+    }
+
     .hero-actions {
       display: grid;
       gap: 12px;
@@ -932,6 +937,127 @@
       }
     }
 
+    @media (max-width: 767px) {
+      .header-inner {
+        min-height: 56px;
+      }
+
+      .brand {
+        gap: 8px;
+        font-size: 16px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        border-radius: 11px;
+        box-shadow: 3px 3px 0 var(--text);
+      }
+
+      .mobile-cta {
+        min-height: 40px;
+        padding: 0 14px;
+        font-size: 13px;
+      }
+
+      .hero {
+        min-height: auto;
+        display: block;
+        padding: 28px 0 24px;
+      }
+
+      .hero-grid {
+        gap: 0;
+      }
+
+      .eyebrow {
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 13px;
+      }
+
+      .eyebrow:before {
+        width: 24px;
+      }
+
+      h1 {
+        max-width: 9em;
+        margin-bottom: 12px;
+        font-size: clamp(38px, 10.4vw, 56px);
+        line-height: 1;
+      }
+
+      .hero-sub {
+        margin-top: 6px;
+        font-size: .46em;
+        line-height: 1.12;
+      }
+
+      .desktop-lead,
+      .desktop-goal {
+        display: none;
+      }
+
+      .mobile-lead {
+        display: inline;
+      }
+
+      .mobile-goal {
+        display: inline;
+      }
+
+      .hero-lead {
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 1.48;
+        font-weight: 650;
+      }
+
+      .hero-goal {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 0;
+        padding: 7px 11px;
+        border: 1px solid rgba(255, 122, 26, .22);
+        border-radius: 999px;
+        color: var(--text);
+        background: rgba(255, 209, 102, .28);
+        font-size: 14px;
+        line-height: 1.1;
+        font-weight: 900;
+      }
+
+      .hero-actions {
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .hero-actions .button {
+        min-height: 52px;
+        padding: 0 18px;
+        font-size: 16px;
+      }
+
+      .hero-actions .button.secondary {
+        min-height: auto;
+        padding: 4px 0 0;
+        border: 0;
+        color: var(--orange);
+        background: transparent;
+        box-shadow: none;
+        font-size: 15px;
+      }
+
+      .hero-actions .button.secondary:after {
+        content: " ↓";
+      }
+
+      .poster-visual {
+        display: none;
+      }
+    }
+
     @media (min-width: 1024px) {
       :root {
         --container: min(100% - 56px, 1180px);
@@ -1106,8 +1232,8 @@
         <div>
           <div class="eyebrow">发起者：傲然风云</div>
           <h1>请支持全球变暖！<span class="hero-sub">让东北也拥有海南式人生。</span></h1>
-          <p class="hero-lead">这不是一份严肃到无聊的气候报告，而是一份来自东北人民的温暖想象：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。</p>
-          <p class="hero-goal">我们的目标很简单：让“东北平均30℃”成为一种离谱但真诚的城市愿景。</p>
+          <p class="hero-lead"><span class="desktop-lead">这不是一份严肃到无聊的气候报告，而是一份来自东北人民的温暖想象：冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。</span><span class="mobile-lead">冬天短一点，夜市久一点，烧烤摊多一点，出门不再像参加极限挑战。</span></p>
+          <p class="hero-goal"><span class="desktop-goal">我们的目标很简单：让“东北平均30℃”成为一种离谱但真诚的城市愿景。</span><span class="mobile-goal">目标：东北平均 30℃</span></p>
           <div class="hero-actions">
             <a class="button" href="#petition">加入东北30℃计划</a>
             <a class="button secondary" href="#temperature">查看升温阶段</a>
